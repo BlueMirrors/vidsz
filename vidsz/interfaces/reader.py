@@ -1,2 +1,92 @@
-class Reader:
-    pass
+import abc
+
+
+class _IReader(metaclass=abc.ABCMeta):
+    @property
+    @abc.abstractmethod
+    def name(self):
+        ...
+
+    @property
+    @abc.abstractmethod
+    def width(self):
+        ...
+
+    @property
+    @abc.abstractmethod
+    def height(self):
+        ...
+
+    @property
+    @abc.abstractmethod
+    def fps(self):
+        ...
+
+    @property
+    @abc.abstractmethod
+    def backend(self):
+        ...
+
+    @property
+    @abc.abstractmethod
+    def info(self):
+        ...
+
+    @property
+    @abc.abstractmethod
+    def frame_count(self):
+        ...
+
+    @property
+    @abc.abstractmethod
+    def seconds(self):
+        ...
+
+    @property
+    @abc.abstractmethod
+    def minutes(self):
+        ...
+
+    @abc.abstractmethod
+    def is_open(self):
+        ...
+
+    @abc.abstractmethod
+    def read(self):
+        ...
+
+    @abc.abstractmethod
+    def read_all(self):
+        ...
+
+    @abc.abstractmethod
+    def release(self):
+        ...
+
+    @abc.abstractmethod
+    def __del__(self):
+        ...
+
+    @abc.abstractmethod
+    def __next__(self):
+        ...
+
+    @abc.abstractmethod
+    def __iter__(self):
+        ...
+
+    @abc.abstractmethod
+    def __repr__(self):
+        ...
+
+    @abc.abstractmethod
+    def __str__(self):
+        ...
+
+    @abc.abstractmethod
+    def __enter__(self):
+        ...
+
+    @abc.abstractmethod
+    def __exit__(self):
+        ...

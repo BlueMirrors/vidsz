@@ -8,7 +8,7 @@ Backends
 
 # Read Video
 
-```
+```python
 from vidsz import Reader
 
 # open reader
@@ -45,7 +45,7 @@ with Reader("test.mp4") as reader:
 
 # Write Video
 
-```
+```python
 from vidsz import Reader, Writer
 
 video_fname = "test.mp4"

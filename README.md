@@ -1,4 +1,4 @@
-# Vidsz: Video's Wizard
+# Vidsz: Video's Wizard ![CI-Test-Status](https://github.com/BlueMirrors/vidsz/actions/workflows/ci_tests.yml/badge.svg)
 
 Common Wrapper/Interface around various video reading/writing tools to make video reading stable, consistent and super easy around different systems and OS.
 

@@ -1,4 +1,4 @@
-# Vidsz: Video's Wizard ![CI-Test-Status](https://github.com/BlueMirrors/vidsz/actions/workflows/ci_tests.yml/badge.svg)
+# <img src="static/logo.png" width="30">Vidsz: Video's Wizard ![CI-Test-Status](https://github.com/BlueMirrors/vidsz/actions/workflows/ci_tests.yml/badge.svg)
 
 Common Wrapper/Interface around various video reading/writing tools to make video reading stable, consistent and super easy around different systems and OS.
 
@@ -73,3 +73,6 @@ writer.write(frame)
 # close off
 writer.release()
 ```
+
+***Logo-Attribution***
+<a href="http://www.freepik.com">Designed by brgfx / Freepik</a>

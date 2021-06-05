@@ -35,6 +35,12 @@ for frame in reader:
 
 # release
 reader.release()
+
+
+# or read with a with block
+with Reader("test.mp4") as reader:
+    frame = reader.read()
+    frames = reader.read_all() # list of frames returned
 ```
 
 # Write Video

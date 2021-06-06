@@ -103,3 +103,21 @@ class Reader(_IReader):
     @property
     def minutes(self):
         return self.seconds / 60.0
+
+    def is_open(self):
+        return self._video_stream.isOpened()
+
+    def read(self):
+        flag, frame = self._video_stream.read()
+        return frame
+
+    def read_all(self):
+        frames = []
+        flag = True
+        while self.is_open():
+            frames.append(self.read())
+
+    def release(self):
+        if self._video_stream is not None:
+            self._video_stream.release()
+            self._video_stream = None

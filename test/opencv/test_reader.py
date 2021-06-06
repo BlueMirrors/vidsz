@@ -7,7 +7,7 @@ sys.path.insert(0, './')
 import pytest
 import cv2
 import numpy as np
-from vidsz.opencv.reader.base_reader import Reader
+from vidsz.opencv import Reader
 
 VIDEO_PATHS = ['static/countdown.mp4']
 

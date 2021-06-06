@@ -193,3 +193,16 @@ class Writer(_IWriter):
 
     def is_open(self):
         return self._video_writer.isOpened()
+
+    def write(self, frame):
+        self._video_writer.write(frame)
+        self._frame_count += 1
+
+    def write_all(self, frames):
+        for frame in frames:
+            self.write(frame)
+
+    def release(self):
+        if self._video_writer is not None:
+            self._video_writer.release()
+            self._video_writer = None

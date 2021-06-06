@@ -33,6 +33,7 @@ class Reader(_IReader):
         """Initiate all class properties to default values
         """
         self._name = None
+        self._is_open = False
         self._video_stream = None
         self._width = None
         self._height = None
@@ -58,6 +59,7 @@ class Reader(_IReader):
         self._width = self._video_stream.get(cv2.CAP_PROP_FRAME_WIDTH)
         self._height = self._video_stream.get(cv2.CAP_PROP_FRAME_HEIGHT)
         self._fps = self._video_stream.get(cv2.CAP_PROP_FPS)
+        self._is_open = self._video_stream.isOpened()
 
         # update info
         self._info = {
@@ -105,19 +107,42 @@ class Reader(_IReader):
         return self.seconds / 60.0
 
     def is_open(self):
-        return self._video_stream.isOpened()
+        return self._video_stream.isOpened() and self._is_open
 
     def read(self):
         flag, frame = self._video_stream.read()
+        self._frame_count += 0 if frame is None else 1
+        self._is_open = flag
         return frame
 
     def read_all(self):
-        frames = []
-        flag = True
-        while self.is_open():
-            frames.append(self.read())
+        return [frame for frame in self]
 
     def release(self):
         if self._video_stream is not None:
             self._video_stream.release()
             self._video_stream = None
+
+    def __del__(self):
+        self.release()
+
+    def __next__(self):
+        frame = self.read()
+        if frame is None:
+            raise StopIteration()
+        return frame
+
+    def __iter__(self):
+        return self
+
+    def __repr__(self):
+        return str(self._info)
+
+    def __str__(self):
+        return str(self._info)
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        self.release()

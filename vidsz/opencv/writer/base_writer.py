@@ -28,8 +28,6 @@ class Writer(_IWriter):
                                              (self._width, self._height))
 
         # check if open
-        self._is_open = self._video_writer.isOpened()
-
         if not self.is_open():
             raise "Failed to Create Writer for the given settings."
 
@@ -37,7 +35,6 @@ class Writer(_IWriter):
         """Initiate all class properties to default values
         """
         self._name = None
-        self._is_open = False
         self._video_writer = None
         self._width = None
         self._height = None
@@ -193,3 +190,6 @@ class Writer(_IWriter):
             float: written frames' in minutes
         """
         return self.seconds / 60.0
+
+    def is_open(self):
+        return self._video_writer.isOpened()

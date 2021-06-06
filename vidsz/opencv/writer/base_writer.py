@@ -206,3 +206,18 @@ class Writer(_IWriter):
         if self._video_writer is not None:
             self._video_writer.release()
             self._video_writer = None
+
+    def __del__(self):
+        self.release()
+
+    def __repr__(self):
+        return str(self.info)
+
+    def __str__(self):
+        return str(self.info)
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *args):
+        self.release()

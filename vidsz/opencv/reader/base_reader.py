@@ -56,10 +56,10 @@ class Reader(_IReader):
             )
 
         # update relevant props
-        self._width = self._video_stream.get(cv2.CAP_PROP_FRAME_WIDTH)
-        self._height = self._video_stream.get(cv2.CAP_PROP_FRAME_HEIGHT)
+        self._width = int(self._video_stream.get(cv2.CAP_PROP_FRAME_WIDTH))
+        self._height = int(self._video_stream.get(cv2.CAP_PROP_FRAME_HEIGHT))
         self._fps = self._video_stream.get(cv2.CAP_PROP_FPS)
-        self._is_open = self._video_stream.isOpened()
+        self._is_open = bool(self._video_stream.isOpened())
 
         # update info
         self._info = {

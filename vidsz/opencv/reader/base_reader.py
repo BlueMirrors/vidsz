@@ -67,3 +67,39 @@ class Reader(_IReader):
             "fps": self._fps,
             "backend": self._backend
         }
+
+    @property
+    def name(self):
+        return self._name
+
+    @property
+    def width(self):
+        return self._width
+
+    @property
+    def height(self):
+        return self._height
+
+    @property
+    def fps(self):
+        return self._fps
+
+    @property
+    def backend(self):
+        return self._backend
+
+    @property
+    def info(self):
+        return self._info
+
+    @property
+    def frame_count(self):
+        return self._frame_count
+
+    @property
+    def seconds(self):
+        return (self._frame_count / self._fps) if self._fps else 0
+
+    @property
+    def minutes(self):
+        return self.seconds / 60.0

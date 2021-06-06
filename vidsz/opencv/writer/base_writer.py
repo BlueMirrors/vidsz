@@ -86,7 +86,15 @@ class Writer(_IWriter):
         if '.' not in self._ext:
             self._ext = '.' + self._ext
 
-    def _fourcc(self):
-        if self._ext not in self._EXT_TO_FOURCC:
-            raise NotImplemented
-        return cv2.VideoWriter_fourcc(*self._EXT_TO_FOURCC[self._ext])
+    def _update_info(self):
+        """Update info property according to props
+        """
+        # update info
+        self._info = {
+            "name": self._name,
+            "width": self._width,
+            "height": self._height,
+            "fps": self._fps,
+            "backend": self._backend,
+            "ext": self._ext
+        }

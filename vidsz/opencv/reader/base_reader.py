@@ -239,7 +239,7 @@ class Reader(_IReader):
 
     def __exit__(self, exc_type: None, exc_value: None,
                  traceback: None) -> None:
-        """[summary]
+        """Release resources before exit
 
         Args:
             exc_type (NoneType): Exception type if any

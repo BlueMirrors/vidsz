@@ -98,3 +98,98 @@ class Writer(_IWriter):
             "backend": self._backend,
             "ext": self._ext
         }
+
+    def _fourcc(self):
+        if self._ext not in self._EXT_TO_FOURCC:
+            raise NotImplemented
+        return cv2.VideoWriter_fourcc(*self._EXT_TO_FOURCC[self._ext])
+
+    @property
+    def name(self) -> str:
+        """Name of Output Video
+
+        Returns:
+            str: name of output video
+        """
+        return self._name
+
+    @property
+    def width(self) -> int:
+        """Width of Video
+
+        Returns:
+            int: width of video frame
+        """
+        return self._width
+
+    @property
+    def height(self):
+        """Height of Video
+
+        Returns:
+            int: height of video frame
+        """
+        return self._height
+
+    @property
+    def fps(self) -> float:
+        """FPS of Video
+
+        Returns:
+            float: fps of video
+        """
+        return self._fps
+
+    @property
+    def backend(self) -> str:
+        """Name of the Backend being used
+
+        Returns:
+            str: current backend name
+        """
+        return self._backend
+
+    @property
+    def ext(self) -> str:
+        """Name of the ext being used
+
+        Returns:
+            str: current ext
+        """
+        return self._ext
+
+    @property
+    def info(self) -> dict:
+        """Video Informations
+
+        Returns:
+            dict: info of width, height, fps and backend.
+        """
+        return self._info
+
+    @property
+    def frame_count(self) -> int:
+        """Number of frames already been written
+
+        Returns:
+            int: written frames' count
+        """
+        return self._frame_count
+
+    @property
+    def seconds(self) -> float:
+        """Amount of seconds already been written
+
+        Returns:
+            float: written frames' in seconds
+        """
+        return (self._frame_count / self._fps) if self._fps else 0
+
+    @property
+    def minutes(self) -> float:
+        """Amount of minutes already been written
+
+        Returns:
+            float: written frames' in minutes
+        """
+        return self.seconds / 60.0

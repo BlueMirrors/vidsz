@@ -57,11 +57,11 @@ class _IWriter(metaclass=abc.ABCMeta):
         ...
 
     @abc.abstractmethod
-    def write(self):
+    def write(self, frame):
         ...
 
     @abc.abstractmethod
-    def write_all(self):
+    def write_all(self, frames):
         ...
 
     @abc.abstractmethod

@@ -59,7 +59,8 @@ class Writer(_IWriter):
 
         # check if open
         if not self.is_open():
-            raise "Failed to Create Writer for the given settings."
+            raise AssertionError(
+                "Failed to Create Writer for the given settings.")
 
     def _initiate_props(self) -> None:
         """Initiate all class properties to default values
@@ -128,7 +129,7 @@ class Writer(_IWriter):
 
         # check valid name
         if self._name is None:
-            raise Exception("Must provide either Reader or name arg.")
+            raise AssertionError("Must provide either Reader or name arg.")
 
         # set ext for CV2 writer creations
         self._ext = os.path.splitext(self._name)[1] if ext is None else ext
@@ -154,13 +155,13 @@ class Writer(_IWriter):
         """Returns CV2 VideoWriter_fourcc for writer's ext
 
         Raises:
-            NotImplemented: raise if unsupported ext is used.
+            NotImplementedError: raise if unsupported ext is used.
 
         Returns:
             cv2.VideoWriter_fourcc: fourcc of used ext
         """
         if self._ext not in self._EXT_TO_FOURCC:
-            raise NotImplemented
+            raise NotImplementedError(f"'{self._ext}'is not supported.")
         return cv2.VideoWriter_fourcc(*self._EXT_TO_FOURCC[self._ext])
 
     @property

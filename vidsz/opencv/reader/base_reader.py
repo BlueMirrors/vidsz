@@ -118,7 +118,7 @@ class Reader(_IReader):
 
     @property
     def info(self) -> dict:
-        """Video Informations
+        """Video information
 
         Returns:
             dict: info of width, height, fps and backend.
@@ -127,7 +127,7 @@ class Reader(_IReader):
 
     @property
     def frame_count(self) -> int:
-        """Number of frames already been read
+        """Total frames read
 
         Returns:
             int: read frames' count
@@ -136,7 +136,7 @@ class Reader(_IReader):
 
     @property
     def seconds(self) -> float:
-        """Amount of seconds already been read
+        """Total seconds read
 
         Returns:
             float: read frames' in seconds
@@ -145,7 +145,7 @@ class Reader(_IReader):
 
     @property
     def minutes(self) -> float:
-        """Amount of minutes already been read
+        """Total minutes read
 
         Returns:
             float: read frames' in minutes
@@ -230,7 +230,7 @@ class Reader(_IReader):
         return str(self._info)
 
     def __enter__(self) -> "Reader":
-        """Conext for with statement
+        """Returns Conext for "with" block usage
 
         Returns:
             Reader: Video Reader object
@@ -239,7 +239,7 @@ class Reader(_IReader):
 
     def __exit__(self, exc_type: None, exc_value: None,
                  traceback: None) -> None:
-        """Release resources before exit
+        """Release resources before exiting the "with" block
 
         Args:
             exc_type (NoneType): Exception type if any

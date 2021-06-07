@@ -14,7 +14,7 @@ VIDEO_PATHS = ['static/countdown.mp4']
 
 @pytest.mark.parametrize("vpath", VIDEO_PATHS)
 def test_correctness(vpath: str) -> None:
-    """Test Reader correctness by comparing to OpenCV results.
+    """Test Reader correctness by comparing with OpenCV Reader
 
     Args:
         vpath (str): path to video
@@ -37,7 +37,7 @@ def test_correctness(vpath: str) -> None:
 
 @pytest.mark.parametrize("vpath", VIDEO_PATHS)
 def test_state(vpath: str) -> None:
-    """Test Reader properties access config.
+    """Test Reader's properties' behavior
 
     Args:
         vpath (str): path to video

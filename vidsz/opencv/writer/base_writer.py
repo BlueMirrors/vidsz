@@ -1,6 +1,8 @@
 import os
 from typing import Optional
 
+import cv2
+
 from vidsz.interfaces import _IWriter
 from vidsz.interfaces import _IReader
 
@@ -56,7 +58,7 @@ class Writer(_IWriter):
 
         # set default if given
         if reader is not None:
-            reader_name, reader_ext = os.path.splitext(reader.name)[0]
+            reader_name, reader_ext = os.path.splitext(reader.name)
             self._name = f"{reader_name}_out{reader_ext}"
             self._width = reader.width
             self._height = reader.height

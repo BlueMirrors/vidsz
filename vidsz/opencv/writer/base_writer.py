@@ -1,13 +1,20 @@
+"""Implements vidsz.interfaces._IWriter interface for OpenCV Backend.
+"""
 import os
-from typing import Optional
+from typing import Optional, List, Union
 
 import cv2
+import numpy as np
 
 from vidsz.interfaces import _IWriter
 from vidsz.interfaces import _IReader
 
 
 class Writer(_IWriter):
+    """Video Writing wrapper around Opencv-Backend
+    """
+
+    # opencv fourcc mappings
     _EXT_TO_FOURCC = {".avi": "DIVX", ".mkv": "X264", ".mp4": "mp4v"}
 
     def __init__(self,
@@ -17,6 +24,27 @@ class Writer(_IWriter):
                  height: Optional[int] = None,
                  fps: Optional[int] = None,
                  ext: Optional[str] = None) -> None:
+        """Initiate Writer object
+
+        Args:
+            reader (Optional[_IReader], optional): Source for setting
+            output video's configs. Defaults to None.
+
+            name (Optional[str], optional): name of output video,
+            overwrites reader's. Defaults to None.
+
+            width (Optional[int], optional): width of output video,
+            overwrites reader's. Defaults to None.
+
+            height (Optional[int], optional): height of output video.
+            overwrites reader's. Defaults to None.
+
+            fps (Optional[int], optional): fps of output video,
+            overwrites reader's. Defaults to None.
+
+            ext (Optional[str], optional): extension of output video,
+            overwrites reader's. Defaults to None.
+        """
 
         # initiate props
         self._initiate_props()
@@ -55,6 +83,30 @@ class Writer(_IWriter):
                       height: Optional[int] = None,
                       fps: Optional[int] = None,
                       ext: Optional[str] = None) -> None:
+        """Update all relevant class properties
+
+        Args:
+            reader (Optional[_IReader], optional): Source for setting
+            output video's configs. Defaults to None.
+
+            name (Optional[str], optional): name of output video,
+            overwrites reader's. Defaults to None.
+
+            width (Optional[int], optional): width of output video,
+            overwrites reader's. Defaults to None.
+
+            height (Optional[int], optional): height of output video.
+            overwrites reader's. Defaults to None.
+
+            fps (Optional[int], optional): fps of output video,
+            overwrites reader's. Defaults to None.
+
+            ext (Optional[str], optional): extension of output video,
+            overwrites reader's. Defaults to None.
+
+        Raises:
+            Exception: Raised if neither reader nor name is given.
+        """
 
         # set default if given
         if reader is not None:
@@ -85,8 +137,8 @@ class Writer(_IWriter):
         if '.' not in self._ext:
             self._ext = '.' + self._ext
 
-    def _update_info(self):
-        """Update info property according to props
+    def _update_info(self) -> None:
+        """Update info property according to class props
         """
         # update info
         self._info = {
@@ -98,7 +150,15 @@ class Writer(_IWriter):
             "ext": self._ext
         }
 
-    def _fourcc(self):
+    def _fourcc(self) -> cv2.VideoWriter_fourcc:
+        """Returns CV2 VideoWriter_fourcc for writer's ext
+
+        Raises:
+            NotImplemented: raise if unsupported ext is used.
+
+        Returns:
+            cv2.VideoWriter_fourcc: fourcc of used ext
+        """
         if self._ext not in self._EXT_TO_FOURCC:
             raise NotImplemented
         return cv2.VideoWriter_fourcc(*self._EXT_TO_FOURCC[self._ext])
@@ -114,7 +174,7 @@ class Writer(_IWriter):
 
     @property
     def width(self) -> int:
-        """Width of Video
+        """Width of Output Video
 
         Returns:
             int: width of video frame
@@ -122,8 +182,8 @@ class Writer(_IWriter):
         return self._width
 
     @property
-    def height(self):
-        """Height of Video
+    def height(self) -> int:
+        """Height of Output Video
 
         Returns:
             int: height of video frame
@@ -132,7 +192,7 @@ class Writer(_IWriter):
 
     @property
     def fps(self) -> float:
-        """FPS of Video
+        """FPS of Output Video
 
         Returns:
             float: fps of video
@@ -150,25 +210,25 @@ class Writer(_IWriter):
 
     @property
     def ext(self) -> str:
-        """Name of the ext being used
+        """Extension of Output Video
 
         Returns:
-            str: current ext
+            str: ext of video
         """
         return self._ext
 
     @property
     def info(self) -> dict:
-        """Video Informations
+        """Video information
 
         Returns:
-            dict: info of width, height, fps and backend.
+            dict: info of width, height, fps, backend and ext
         """
         return self._info
 
     @property
     def frame_count(self) -> int:
-        """Number of frames already been written
+        """Total frames written
 
         Returns:
             int: written frames' count
@@ -177,7 +237,7 @@ class Writer(_IWriter):
 
     @property
     def seconds(self) -> float:
-        """Amount of seconds already been written
+        """Total seconds written
 
         Returns:
             float: written frames' in seconds
@@ -186,40 +246,78 @@ class Writer(_IWriter):
 
     @property
     def minutes(self) -> float:
-        """Amount of minutes already been written
+        """Total minutes written
 
         Returns:
             float: written frames' in minutes
         """
         return self.seconds / 60.0
 
-    def is_open(self):
+    def is_open(self) -> bool:
+        """Checks if writer is still open
+
+        Returns:
+            bool: True if writer is open, False otherwise
+        """
         return self._video_writer.isOpened()
 
-    def write(self, frame):
+    def write(self, frame: np.ndarray) -> None:
+        """Write frame to output video
+
+        Args:
+            frame (np.ndarray): frame to write
+        """
         self._video_writer.write(frame)
         self._frame_count += 1
 
-    def write_all(self, frames):
+    def write_all(self, frames: Union[List[np.ndarray], _IReader]) -> None:
+        """Write all frames to output video
+
+        Args:
+            frames (Union[List[np.ndarray], _IReader]): Iterable object that contains frames.
+        """
         for frame in frames:
             self.write(frame)
 
-    def release(self):
+    def release(self) -> None:
+        """Release Resources
+        """
         if self._video_writer is not None:
             self._video_writer.release()
             self._video_writer = None
 
-    def __del__(self):
+    def __del__(self) -> None:
+        """Release Resources
+        """
         self.release()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
+        """Writer's Info
+        Returns:
+            str: info
+        """
         return str(self.info)
 
-    def __str__(self):
+    def __str__(self) -> str:
+        """Writer's Info
+        Returns:
+            str: info
+        """
         return str(self.info)
 
-    def __enter__(self):
+    def __enter__(self) -> "Writer":
+        """Returns Conext for "with" block usage
+        Returns:
+            Writer: Video Reader object
+        """
         return self
 
-    def __exit__(self, *args):
+    def __exit__(self, exc_type: None, exc_value: None,
+                 traceback: None) -> None:
+        """Release resources before exiting the "with" block
+        Args:
+            exc_type (NoneType): Exception type if any
+            exc_value (NoneType): Exception value if any
+            traceback (NoneType): Traceback of Exception
+        """
         self.release()

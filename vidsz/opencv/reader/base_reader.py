@@ -90,7 +90,7 @@ class Reader(_IReader):
         return self._width
 
     @property
-    def height(self):
+    def height(self) -> int:
         """Height of Video
 
         Returns:

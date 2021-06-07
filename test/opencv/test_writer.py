@@ -82,7 +82,7 @@ def test_exceptions() -> None:
         print(writer1)
         writer1.release()
 
-    except Exception as _:
+    except AssertionError as _:
         exception_flag = True
 
     assert exception_flag, "Failed to raise proper exception."
@@ -90,11 +90,11 @@ def test_exceptions() -> None:
     # create with unsupported ext
     exception_flag = False
     try:
-        writer2 = Writer('test', ext='jst')
+        writer2 = Writer(name='test', ext='jst')
         print(writer2)
         writer2.release()
 
-    except Exception as _:
+    except NotImplementedError as _:
         exception_flag = True
 
     assert exception_flag, "Failed to raise proper exception."

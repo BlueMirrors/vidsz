@@ -1,23 +1,20 @@
-"""Test Base Reader's behavior and correctness.
+"""Test Base Writer's behavior and correctness.
 """
 import os
 import sys
 
-from vidsz import opencv
-
 sys.path.insert(0, './')
 
 import pytest
-import cv2
 import numpy as np
-from vidsz.opencv import Reader, Writer
+from vidsz.opencv import (Reader, Writer)
 
 VIDEO_PATHS = ['static/countdown.mp4']
 
 
 @pytest.mark.parametrize("vpath", VIDEO_PATHS)
 def test_correctness(vpath: str) -> None:
-    """Test Reader correctness by writing and reading first frame.
+    """Test Reader correctness by writing and then reading the video.
 
     Args:
         vpath (str): path to video
@@ -59,12 +56,11 @@ def test_correctness(vpath: str) -> None:
 
 @pytest.mark.parametrize("vpath", VIDEO_PATHS)
 def test_with_overwriting_configs(vpath: str) -> None:
-    #     """Test Writer behavior with 'with' block and overwriting
+    """Test Writer's feature of overwriting configs
 
-    #     Args:
-    #         vpath (str): path to video
-    #     """
-    #     # or read with a with block
+    Args:
+        vpath (str): path to video
+    """
     with Reader(vpath) as reader:
         with Writer(reader, name='temp.mp4', fps=10) as writer:
             writer.write_all(reader)

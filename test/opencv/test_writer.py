@@ -70,3 +70,31 @@ def test_with_overwriting_configs(vpath: str) -> None:
     with Reader("temp.mp4") as reader:
         assert reader.fps == 10, "Failed to overwrite FSP"
     os.remove('temp.mp4')
+
+
+def test_exceptions() -> None:
+    """Test if writer raises correct exceptions when needed
+    """
+    # create without reader or name
+    exception_flag = False
+    try:
+        writer1 = Writer()
+        print(writer1)
+        writer1.release()
+
+    except Exception as _:
+        exception_flag = True
+
+    assert exception_flag, "Failed to raise proper exception."
+
+    # create with unsupported ext
+    exception_flag = False
+    try:
+        writer2 = Writer('test', ext='jst')
+        print(writer2)
+        writer2.release()
+
+    except Exception as _:
+        exception_flag = True
+
+    assert exception_flag, "Failed to raise proper exception."

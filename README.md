@@ -1,4 +1,7 @@
-# <img src="static/logo.png" width="30">Vidsz: Video's Wizard ![CI-Test-Status](https://github.com/BlueMirrors/vidsz/actions/workflows/ci_tests.yml/badge.svg)
+# <img src="static/logo.png" width="30">Vidsz: Video's Wizard 
+![CI-Test-Status](https://github.com/BlueMirrors/vidsz/actions/workflows/ci_tests.yml/badge.svg) [![CodeFactor](https://www.codefactor.io/repository/github/bluemirrors/vidsz/badge?s=8752aa2850f09145fc469fd9a07eafb5144d56fc)](https://www.codefactor.io/repository/github/bluemirrors/vidsz) [![status](https://img.shields.io/pypi/status/ansicolortags.svg)](https://pypi.python.org/pypi/ansicolortags/) [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
+
+
 
 Common Wrapper/Interface around various video reading/writing tools to make video reading stable, consistent and super easy around different systems and OS.
 

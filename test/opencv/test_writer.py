@@ -68,7 +68,7 @@ def test_with_overwriting_configs(vpath: str) -> None:
             assert writer.fps == 10, "Failed to overwrite FPS"
 
     with Reader("temp.mp4") as reader:
-        assert reader.fps == 10, "Failed to overwrite FSP"
+        assert reader.fps == 10, "Failed to overwrite FPS"
     os.remove('temp.mp4')
 
 

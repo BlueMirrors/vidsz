@@ -62,6 +62,9 @@ class Writer(_IWriter):
             raise AssertionError(
                 "Failed to Create Writer for the given settings.")
 
+        # update info
+        self._update_info()
+
     def _initiate_props(self) -> None:
         """Initiate all class properties to default values
         """

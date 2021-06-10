@@ -12,7 +12,7 @@ Backends
 # Read Video
 
 ```python
-from vidsz import Reader
+from vidsz.opencv import Reader
 
 # open reader
 reader = Reader("static/countdown.mp4")
@@ -49,7 +49,7 @@ with Reader("static/countdown.mp4") as reader:
 # Write Video
 
 ```python
-from vidsz import Reader, Writer
+from vidsz.opencv import Reader, Writer
 
 video_fname = "static/countdown.mp4"
 
@@ -64,7 +64,7 @@ writer = Writer(reader)
 # you can also give any combinations of
 # following settings with Reader object to
 # overwrite default settings
-writer = Writer("out.mp4", width=680, height=340, fps=30, ext="avi")
+writer = Writer(name="out.mp4", width=1920, height=1080, fps=15)
 
 # print writer info
 print(writer)
@@ -82,7 +82,7 @@ writer.release()
 
 # using "with" block, write "static/countdown_out.mp4" (clone of input)
 with Reader(video_fname) as reader:
-    with Writer(reader) as writer:
+    with Writer(reader, name="out_with.mp4") as writer:
         writer.write_all(reader)
 ```
 

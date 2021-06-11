@@ -1,4 +1,5 @@
-# <img src="https://github.com/BlueMirrors/vidsz/blob/master/static/logo.png" width="30">Vidsz: Video's Wizard 
+# <img src="https://raw.githubusercontent.com/BlueMirrors/vidsz/master/static/logo.png" width="30">Vidsz: Video's Wizard
+
 ![CI-Test-Status](https://github.com/BlueMirrors/vidsz/actions/workflows/ci_tests.yml/badge.svg) [![CodeFactor](https://www.codefactor.io/repository/github/bluemirrors/vidsz/badge?s=8752aa2850f09145fc469fd9a07eafb5144d56fc)](https://www.codefactor.io/repository/github/bluemirrors/vidsz) ![status](https://img.shields.io/pypi/status/ansicolortags.svg) [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/) [![Documentation Status](https://readthedocs.org/projects/vidsz/badge/?version=latest)](https://vidsz.readthedocs.io/en/latest/?badge=latest)
 
 Common Wrapper/Interface around various video reading/writing tools to make video reading stable, consistent and super easy around different systems and OS.
@@ -75,7 +76,7 @@ print(writer)
 frame = reader.read()
 writer.write(frame)
 
-# write list of frames 
+# write list of frames
 # or directly write everything from reader object
 writer.write_all(reader)
 

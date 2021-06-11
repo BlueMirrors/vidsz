@@ -9,7 +9,7 @@ README = (HERE / "README.md").read_text()
 
 # This call to setup() does all the work
 setup(name="vidsz",
-      version="0.1.0",
+      version="0.1.1",
       description=
       "Common Wrapper/Interface around various video reading/writing tools",
       long_description=README,

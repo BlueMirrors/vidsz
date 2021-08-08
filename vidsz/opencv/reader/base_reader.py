@@ -34,7 +34,7 @@ class Reader(IReader):
         """Initiate all class properties to default values
         """
         self._name = None
-        self._is_open = False
+        self._is_open = True
         self._video_stream = None
         self._width = None
         self._height = None
@@ -51,10 +51,10 @@ class Reader(IReader):
         Raises:
             Exception: VideoSourceNotOpen raised when no video stream is opened
         """
-        if self._video_stream is None:
-            raise Exception(
-                "VideoSourceNotOpen: Cannot access video properties for non-opened source."
-            )
+        # check if source is open
+        if not self.is_open():
+            raise Exception((f"Failed to read from {self.name}. " +
+                             "Please check the filename/source-info again."))
 
         # update relevant props
         self._width = int(self._video_stream.get(cv2.CAP_PROP_FRAME_WIDTH))

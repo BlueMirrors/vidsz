@@ -1,14 +1,14 @@
-"""Implements vidsz.interfaces._IReader interface for OpenCV Backend.
+"""Implements vidsz.interfaces.IReader interface for OpenCV Backend.
 """
 from typing import Union, List
 
 import cv2
 import numpy as np
 
-from vidsz.interfaces import _IReader
+from vidsz.interfaces import IReader
 
 
-class Reader(_IReader):
+class Reader(IReader):
     """Video Reading wrapper around Opencv-Backend
     """
     def __init__(self, source_name: Union[str, int], **kwargs) -> None:

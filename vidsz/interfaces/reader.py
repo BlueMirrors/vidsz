@@ -6,7 +6,7 @@ from typing import Union, List
 import numpy as np
 
 
-class _IReader(metaclass=abc.ABCMeta):
+class IReader(metaclass=abc.ABCMeta):
     """Video Reader Interface which will be implemented
     for every supported backend.
     """
@@ -152,11 +152,11 @@ class _IReader(metaclass=abc.ABCMeta):
         ...
 
     @abc.abstractmethod
-    def __iter__(self) -> "_IReader":
+    def __iter__(self) -> "IReader":
         """Returns iterable object for reading frames
 
         Returns:
-            Iterable[_IReader]: iterable object for reading frames
+            Iterable[IReader]: iterable object for reading frames
         """
         ...
 
@@ -179,11 +179,11 @@ class _IReader(metaclass=abc.ABCMeta):
         ...
 
     @abc.abstractmethod
-    def __enter__(self) -> "_IReader":
+    def __enter__(self) -> "IReader":
         """Returns Conext for "with" block usage
 
         Returns:
-            _IReader: Video Reader object
+            IReader: Video Reader object
         """
         ...
 

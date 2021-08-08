@@ -5,10 +5,10 @@ from typing import List, Union
 
 import numpy as np
 
-from .reader import _IReader
+from .reader import IReader
 
 
-class _IWriter(metaclass=abc.ABCMeta):
+class IWriter(metaclass=abc.ABCMeta):
     """Video Writing Interface which will be implemented
     for every supported backend.
     """
@@ -131,11 +131,11 @@ class _IWriter(metaclass=abc.ABCMeta):
         ...
 
     @abc.abstractmethod
-    def write_all(self, frames: Union[List[np.ndarray], _IReader]) -> None:
+    def write_all(self, frames: Union[List[np.ndarray], IReader]) -> None:
         """Write all frames to output video
 
         Args:
-            frames (Union[List[np.ndarray], _IReader]): Iterable object that contains frames.
+            frames (Union[List[np.ndarray], IReader]): Iterable object that contains frames.
         """
         ...
 
@@ -168,10 +168,10 @@ class _IWriter(metaclass=abc.ABCMeta):
         ...
 
     @abc.abstractmethod
-    def __enter__(self) -> "_IWriter":
+    def __enter__(self) -> "IWriter":
         """Returns Conext for "with" block usage
         Returns:
-            _IWriter: Video Reader object
+            IWriter: Video Reader object
         """
         ...
 

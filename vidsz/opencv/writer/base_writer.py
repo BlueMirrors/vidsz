@@ -1,4 +1,4 @@
-"""Implements vidsz.interfaces._IWriter interface for OpenCV Backend.
+"""Implements vidsz.interfaces.IWriter interface for OpenCV Backend.
 """
 import os
 from typing import Optional, List, Union
@@ -6,11 +6,11 @@ from typing import Optional, List, Union
 import cv2
 import numpy as np
 
-from vidsz.interfaces import _IWriter
-from vidsz.interfaces import _IReader
+from vidsz.interfaces import IWriter
+from vidsz.interfaces import IReader
 
 
-class Writer(_IWriter):
+class Writer(IWriter):
     """Video Writing wrapper around Opencv-Backend
     """
 
@@ -18,7 +18,7 @@ class Writer(_IWriter):
     _EXT_TO_FOURCC = {".avi": "DIVX", ".mkv": "X264", ".mp4": "mp4v"}
 
     def __init__(self,
-                 reader: Optional[_IReader] = None,
+                 reader: Optional[IReader] = None,
                  name: Optional[str] = None,
                  width: Optional[int] = None,
                  height: Optional[int] = None,
@@ -27,7 +27,7 @@ class Writer(_IWriter):
         """Initiate Writer object
 
         Args:
-            reader (Optional[_IReader], optional): Source for setting
+            reader (Optional[IReader], optional): Source for setting
             output video's configs. Defaults to None.
 
             name (Optional[str], optional): name of output video,
@@ -81,7 +81,7 @@ class Writer(_IWriter):
         self._minutes = 0
 
     def _update_props(self,
-                      reader: Optional[_IReader] = None,
+                      reader: Optional[IReader] = None,
                       name: Optional[str] = None,
                       width: Optional[int] = None,
                       height: Optional[int] = None,
@@ -90,7 +90,7 @@ class Writer(_IWriter):
         """Update all relevant class properties
 
         Args:
-            reader (Optional[_IReader], optional): Source for setting
+            reader (Optional[IReader], optional): Source for setting
             output video's configs. Defaults to None.
 
             name (Optional[str], optional): name of output video,
@@ -274,11 +274,11 @@ class Writer(_IWriter):
         self._video_writer.write(frame)
         self._frame_count += 1
 
-    def write_all(self, frames: Union[List[np.ndarray], _IReader]) -> None:
+    def write_all(self, frames: Union[List[np.ndarray], IReader]) -> None:
         """Write all frames to output video
 
         Args:
-            frames (Union[List[np.ndarray], _IReader]): Iterable object that contains frames.
+            frames (Union[List[np.ndarray], IReader]): Iterable object that contains frames.
         """
         for frame in frames:
             self.write(frame)

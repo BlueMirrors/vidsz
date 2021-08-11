@@ -10,10 +10,12 @@ import numpy as np
 from vidsz.opencv import Reader
 
 VIDEO_PATHS = ['static/countdown.mp4']
+BATCH_SIZES = [2, 4, 8, 16, 32, 64]
 
 
 @pytest.mark.parametrize("vpath", VIDEO_PATHS)
-def test_correctness(vpath: str) -> None:
+@pytest.mark.parametrize("batch_size", BATCH_SIZES)
+def test_correctness(vpath: str, batch_size: int) -> None:
     """Test Reader correctness by comparing with OpenCV Reader
     (static-batching)
 
@@ -21,14 +23,14 @@ def test_correctness(vpath: str) -> None:
         vpath (str): path to video
     """
     # open reader
-    reader = Reader(vpath, batch_size=32)
+    reader = Reader(vpath, batch_size=batch_size)
 
     # opencv cv reader
     cv2_reader = cv2.VideoCapture(vpath)
 
     width = int(cv2_reader.get(cv2.CAP_PROP_FRAME_WIDTH))
     height = int(cv2_reader.get(cv2.CAP_PROP_FRAME_HEIGHT))
-    expected_shape = (32, height, width, 3)
+    expected_shape = (batch_size, height, width, 3)
 
     count = 0
     for batch in reader:
@@ -52,7 +54,8 @@ def test_correctness(vpath: str) -> None:
 
 
 @pytest.mark.parametrize("vpath", VIDEO_PATHS)
-def test_correctness_dynamic(vpath: str) -> None:
+@pytest.mark.parametrize("batch_size", BATCH_SIZES)
+def test_correctness_dynamic(vpath: str, batch_size: int) -> None:
     """Test Reader correctness by comparing with OpenCV Reader
     (dynamic batching)
 
@@ -60,7 +63,7 @@ def test_correctness_dynamic(vpath: str) -> None:
         vpath (str): path to video
     """
     # open reader
-    reader = Reader(vpath, batch_size=32, dynamic_batch=True)
+    reader = Reader(vpath, batch_size=batch_size, dynamic_batch=True)
 
     # opencv cv reader
     cv2_reader = cv2.VideoCapture(vpath)

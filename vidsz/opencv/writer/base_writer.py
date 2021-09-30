@@ -288,12 +288,12 @@ class Writer(IWriter):
         """
         if self._video_writer is not None:
             self._video_writer.release()
-            self._video_writer = None
 
     def __del__(self) -> None:
         """Release Resources
         """
         self.release()
+        self._video_writer = None
 
     def __repr__(self) -> str:
         """Writer's Info

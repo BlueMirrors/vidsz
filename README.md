@@ -30,9 +30,12 @@ print(reader.width, reader.height, reader.fps)
 print(reader.frame_count, reader.seconds, reader.minutes)
 
 # read frames with while loop
+# this follows similar behavior as opencv counterpart
 while reader.is_open():
     # returns ndarry-frame or None if nothing left to read
     frame = reader.read()
+    if frame is None:
+        break
 
 # read frame with for loop
 for frame in reader:

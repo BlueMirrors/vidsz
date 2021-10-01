@@ -119,3 +119,30 @@ def test_with_all(vpath: str) -> None:
         frames = reader.read_all()  # list of frames returned
 
         assert all(frame is not None for frame in frames), "Bad Frame Read"
+
+
+@pytest.mark.parametrize("vpath", VIDEO_PATHS)
+def test_reader_after_release(vpath: str) -> None:
+    """Test Reader behavior after release operation.
+
+    Args:
+        vpath (str): path to video
+    """
+    # init reader
+    print("Test After Release with While Loop")
+    reader = Reader(vpath)
+    while reader.is_open():
+        # dummy read (for 10 times)
+        reader.read()
+        if reader.frame_count > 10:
+            print("Releasing...")
+            reader.release()
+
+            frame = reader.read()
+            assert frame is None, "frame is not None after release"
+
+        # access reader properties, even after release
+        print(reader)
+
+    # check if reader.is_open() returned False as expected
+    assert reader.frame_count == 11, "frame count doesn't match"

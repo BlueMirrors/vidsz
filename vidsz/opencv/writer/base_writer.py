@@ -270,7 +270,15 @@ class Writer(IWriter):
 
         Args:
             frame (np.ndarray): frame to write
+
+        Raises:
+            Exception: raised when method is called on a non-open writer.
         """
+        # check if writer is open
+        if not self.is_open():
+            raise Exception(
+                "[Vidsz-Error] Attempted writing with a non-open Writer.")
+
         self._video_writer.write(frame)
         self._frame_count += 1
 
@@ -288,12 +296,12 @@ class Writer(IWriter):
         """
         if self._video_writer is not None:
             self._video_writer.release()
-            self._video_writer = None
 
     def __del__(self) -> None:
         """Release Resources
         """
         self.release()
+        self._video_writer = None
 
     def __repr__(self) -> str:
         """Writer's Info

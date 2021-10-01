@@ -98,3 +98,52 @@ def test_exceptions() -> None:
         exception_flag = True
 
     assert exception_flag, "Failed to raise proper exception."
+
+
+@pytest.mark.parametrize("vpath", VIDEO_PATHS)
+def test_writer_after_release(vpath: str) -> None:
+    """Test Writer behavior after release operation.
+
+    Args:
+        vpath (str): path to video
+    """
+    print("Test After Release")
+
+    # init reader and writer
+    reader = Reader(vpath)
+    writer = Writer(reader, name='temp.mp4')
+    while reader.is_open():
+        # dummy read (for 10 times)
+        frame = reader.read()
+
+        # check if valid frame (required behavior for using `while` block)
+        if frame is not None:
+            writer.write(frame)
+
+        # release and test behavior
+        if reader.frame_count > 10:
+            print("Releasing...")
+            writer.release()
+
+            # sholud throw exception
+            frame = reader.read()
+            if frame is not None:
+                # TODO: catch custom exception
+                with pytest.raises(Exception) as execinfo:
+                    writer.write(frame)
+
+                # check if correct exception was raised
+                expected_error = "[Vidsz-Error] Attempted writing with a non-open Writer."
+                assert str(execinfo.value) == expected_error
+
+            # access writer properties, even after release
+            print(writer)
+
+            # release reader
+            reader.release()
+
+    # check written frame count
+    assert writer.frame_count == 11, "expected frame count doesn't match"
+
+    # clean up
+    os.remove('temp.mp4')

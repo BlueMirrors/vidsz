@@ -241,12 +241,12 @@ class Reader(IReader):
         """
         if self._video_stream is not None:
             self._video_stream.release()
-            self._video_stream = None
 
     def __del__(self) -> None:
         """Release Resources
         """
         self.release()
+        self._video_stream = None
 
     def __next__(self) -> np.ndarray:
         """Returns next frame from the video

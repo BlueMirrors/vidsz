@@ -125,7 +125,7 @@ with Reader("dummy.mp4", batch_size=8, dynamic_batch=True) as reader:
     batch_frames = reader.read()
     # write list of frames
     # or directly write everything from reader object
-    writer.write_all(reader)
+    writer.write_all(batch_frames)
 
 # close off
 reader.release()

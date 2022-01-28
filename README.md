@@ -31,7 +31,7 @@ reader = Reader("static/countdown.mp4")
 
 # read frame with for loop
 for frame in reader:
-    # use frame however you like
+    # use ndarry-frame however you like
     pass
 
 # release

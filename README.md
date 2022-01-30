@@ -43,7 +43,7 @@ reader.release()
 ```python
 with Reader("static/countdown.mp4") as reader:
     frame = reader.read()
-    frames = reader.read_all() # list of all frames returned
+    frames = reader.read_all() # list of all ndarry-frames returned
 ```
 
 
@@ -113,7 +113,7 @@ writer.write(frame)
 ```python
 # read frame with for loop
 for frame in reader:
-    # write the frame
+    # write the ndarry-frame
     writer.write(frame)
 ```
 
@@ -123,8 +123,7 @@ for frame in reader:
 # read batches and write
 with Reader("dummy.mp4", batch_size=8, dynamic_batch=True) as reader:
     batch_frames = reader.read()
-    # write list of frames
-    # or directly write everything from reader object
+    # write list or ndarray of frames
     writer.write_all(batch_frames)
 
 # close off

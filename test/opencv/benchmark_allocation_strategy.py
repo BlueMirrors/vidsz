@@ -6,7 +6,7 @@ import numpy as np
 
 
 def pre_allocate(batch_size, height=720, width=1280):
-    batch = np.zeros((batch_size, height, width, 3))
+    batch = np.zeros((batch_size, height, width, 3), dtype="uint8")
 
     for i in range(batch_size):
         batch[i] = np.zeros((height, width, 3))
@@ -17,7 +17,7 @@ def pre_allocate(batch_size, height=720, width=1280):
 def dynamic_allocate(batch_size, height=720, width=1280):
     batch = []
     for _ in range(batch_size):
-        batch.append(np.zeros((height, width, 3)))
+        batch.append(np.zeros((height, width, 3), dtype="uint8"))
 
     return np.array(batch)
 

@@ -199,7 +199,7 @@ class Reader(IReader):
             return None
 
         # pre-allocate batch
-        batch = np.zeros((self._batch_size, self.height, self.width, 3))
+        batch = np.zeros((self._batch_size, self.height, self.width, 3), dtype="uint8")
 
         # fill batch
         for i in range(self._batch_size):

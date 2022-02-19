@@ -119,15 +119,6 @@ class IReader(metaclass=abc.ABCMeta):
         ...
 
     @abc.abstractmethod
-    def read_all(self) -> List[np.ndarray]:
-        """Read all the frames into a list
-
-        Returns:
-            List[np.ndarray]: List containing all the remaining frames in Video
-        """
-        ...
-
-    @abc.abstractmethod
     def release(self) -> None:
         """Release Resources
         """

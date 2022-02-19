@@ -43,7 +43,6 @@ reader.release()
 ```python
 with Reader("static/countdown.mp4") as reader:
     frame = reader.read()
-    frames = reader.read_all() # list of all ndarry-frames returned
 ```
 
 

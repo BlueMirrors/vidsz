@@ -86,27 +86,3 @@ def test_correctness_dynamic(vpath: str, batch_size: int) -> None:
 
     cv2_reader.release()
     reader.release()
-
-
-@pytest.mark.parametrize("vpath", VIDEO_PATHS)
-@pytest.mark.parametrize("batch_size", BATCH_SIZES)
-def test_batch_read_all(vpath: str, batch_size: int) -> None:
-    """Test Opencv-Reader operability with read_all with batch
-    (dynamic batching)
-
-    Args:
-        vpath (str): path to video
-    """
-    # get expected_shape
-    cv2_reader = cv2.VideoCapture(vpath)
-    width = int(cv2_reader.get(cv2.CAP_PROP_FRAME_WIDTH))
-    height = int(cv2_reader.get(cv2.CAP_PROP_FRAME_HEIGHT))
-    expected_shape = (height, width, 3)
-    cv2_reader.release()
-
-    with Reader(vpath, batch_size=batch_size, dynamic_batch=True) as reader:
-        batches_lst = reader.read_all()
-
-        batch = batches_lst[0]
-        assert len(batch.shape) == 4, "Batch axis count does not match."
-        assert batch.shape[1:] == expected_shape, "Batch Shape doesn't match"

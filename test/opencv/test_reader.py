@@ -108,20 +108,6 @@ def test_for_loop(vpath: str) -> None:
 
 
 @pytest.mark.parametrize("vpath", VIDEO_PATHS)
-def test_with_all(vpath: str) -> None:
-    """Test Reader behavior with 'with' block.
-
-    Args:
-        vpath (str): path to video
-    """
-    # or read with a with block
-    with Reader(vpath) as reader:
-        frames = reader.read_all()  # list of frames returned
-
-        assert all(frame is not None for frame in frames), "Bad Frame Read"
-
-
-@pytest.mark.parametrize("vpath", VIDEO_PATHS)
 def test_reader_after_release(vpath: str) -> None:
     """Test Reader behavior after release operation.
 

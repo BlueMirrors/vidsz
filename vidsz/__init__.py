@@ -38,7 +38,6 @@ Backends
     # or read with a with block
     with Reader("static/countdown.mp4") as reader:
         frame = reader.read()
-        frames = reader.read_all() # list of frames returned
 
 ```
 

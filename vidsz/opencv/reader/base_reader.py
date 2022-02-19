@@ -227,15 +227,6 @@ class Reader(IReader):
             return self.read_frame()
         return self.read_batch()
 
-    def read_all(self) -> List[np.ndarray]:
-        """Read all the frames into a list.
-        Returns list of batches of frames if batch_size was set.
-
-        Returns:
-            List[np.ndarray]: List containing all the remaining frames in Video
-        """
-        return [frame for frame in self]
-
     def release(self) -> None:
         """Release Resources
         """
